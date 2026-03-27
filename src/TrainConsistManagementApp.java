@@ -1,33 +1,69 @@
-import java.util.HashSet;
-import java.util.Set;
+/**
+ * Custom Exception to handle invalid bogie capacity.
+ */
+class InvalidCapacityException extends Exception {
+    public InvalidCapacityException(String message) {
+        super(message);
+    }
+}
 
+/**
+ * Use Case 14: Handle Invalid Bogie Capacity (Custom Exception)
+ * This class prevents invalid passenger bogies from being added to the train
+ * by enforcing capacity rules at the time of object creation.
+ * * @author Developer
+ * @version 14.0
+ */
 public class TrainConsistManagementApp {
 
+    // Passenger Bogie model with validation logic
+    static class PassengerBogie {
+        String type;
+        int capacity;
+
+        /**
+         * Constructor that enforces safety rules.
+         * @throws InvalidCapacityException if capacity is less than or equal to zero.
+         */
+        PassengerBogie(String type, int capacity) throws InvalidCapacityException {
+            if (capacity <= 0) {
+                // Rule: Capacity must be greater than zero
+                throw new InvalidCapacityException("Capacity must be greater than zero");
+            }
+            this.type = type;
+            this.capacity = capacity;
+        }
+    }
+
     public static void main(String[] args) {
+        System.out.println("=====================================================");
+        System.out.println(" UC14 - Handle Invalid Bogie Capacity ");
+        System.out.println("=====================================================");
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
+        try {
+            // Attempting to create a valid bogie
+            System.out.println("Creating Sleeper bogie with 72 seats...");
+            PassengerBogie validBogie = new PassengerBogie("Sleeper", 72);
+            System.out.println("Successfully created: " + validBogie.type);
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+            // Attempting to create an invalid bogie (Zero Capacity)
+            System.out.println("\nCreating AC Chair bogie with 0 seats...");
+            PassengerBogie invalidBogie = new PassengerBogie("AC Chair", 0);
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        } catch (InvalidCapacityException e) {
+            // Catching and displaying the custom error message
+            System.err.println("Error: " + e.getMessage());
+        }
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        try {
+            // Attempting to create an invalid bogie (Negative Capacity)
+            System.out.println("\nCreating First Class bogie with -10 seats...");
+            PassengerBogie negativeBogie = new PassengerBogie("First Class", -10);
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
+        } catch (InvalidCapacityException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
 
-        System.out.println("UC3 uniqueness validation completed...");
+        System.out.println("\nUC14 exception handling completed...");
     }
 }
