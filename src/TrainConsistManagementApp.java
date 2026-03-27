@@ -1,33 +1,53 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ * Use Case 11: Validate Train ID and Cargo Code
+ * This class validates input formats using Regular Expressions.
+ * * @author Developer
+ * @version 11.0
+ */
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
+        System.out.println("=====================================================");
+        System.out.println(" UC11 - Validate Train ID and Cargo Code ");
+        System.out.println("=====================================================");
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Accept input from the user [cite: 184, 185]
+        System.out.print("Enter Train ID (Format: TRN-1234): ");
+        String trainId = scanner.nextLine();
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        System.out.print("Enter Cargo Code (Format: PET-AB): ");
+        String cargoCode = scanner.nextLine();
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        // DEFINE REGEX RULES [cite: 204, 221, 222]
+        // TRN- followed by exactly 4 digits
+        String trainIdRegex = "TRN-\\d{4}";
+        // PET- followed by exactly 2 uppercase letters
+        String cargoCodeRegex = "PET-[A-Z]{2}";
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
+        // Apply regex validation using Pattern and Matcher [cite: 186, 208, 209]
+        Pattern trainIdPattern = Pattern.compile(trainIdRegex);
+        Matcher trainIdMatcher = trainIdPattern.matcher(trainId);
 
-        System.out.println("UC3 uniqueness validation completed...");
+        Pattern cargoCodePattern = Pattern.compile(cargoCodeRegex);
+        Matcher cargoCodeMatcher = cargoCodePattern.matcher(cargoCode);
+
+        // Validate using matches() for exact pattern matching [cite: 217, 224]
+        boolean isTrainIdValid = trainIdMatcher.matches();
+        boolean isCargoCodeValid = cargoCodeMatcher.matches();
+
+        // Display validation results [cite: 187, 225]
+        System.out.println("\nValidation Results:");
+        System.out.println("Train ID Valid: " + isTrainIdValid);
+        System.out.println("Cargo Code Valid: " + isCargoCodeValid);
+
+        System.out.println("\nUC11 validation completed...");
+
+        scanner.close();
     }
 }
