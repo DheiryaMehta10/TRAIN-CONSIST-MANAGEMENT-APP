@@ -1,33 +1,53 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Use Case 10: Count Total Seats in Train
+ * Aggregates seating capacity of all bogies into a single total using Stream reduce().
+ * * @author Developer
+ * @version 10.0
+ */
 public class TrainConsistManagementApp {
 
+    // Bogie model representing a passenger bogie
+    static class Bogie {
+        String name;
+        int capacity;
+
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
+        }
+    }
+
     public static void main(String[] args) {
+        System.out.println("=====================================================");
+        System.out.println(" UC10 - Count Total Seats in Train ");
+        System.out.println("=====================================================");
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
+        // 1. Create a list of bogies
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Sleeper", 70));
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Display bogies in the train
+        System.out.println("Bogies in Train:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // 2. Convert list to stream
+        // 3. map() extracts capacity values
+        // 4. reduce() sums the capacities
+        int totalSeatingCapacity = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        // 5. Total seating capacity is displayed
+        System.out.println("\nTotal Seating Capacity of Train: " + totalSeatingCapacity);
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
-
-        System.out.println("UC3 uniqueness validation completed...");
+        System.out.println("\nUC10 aggregation completed...");
     }
 }
