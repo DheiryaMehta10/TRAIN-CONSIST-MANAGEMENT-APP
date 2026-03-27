@@ -1,33 +1,34 @@
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        System.out.println("======================================");
+        System.out.println(" UC5 - Preserve Insertion Order of Bogies ");
+        System.out.println("======================================\n");
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // LinkedHashSet preserves insertion order and ensures uniqueness
+        Set<String> formation = new LinkedHashSet<>();
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        // Attaching bogies in order
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
+        // Attempt to add duplicate bogie
+        formation.add("Sleeper");  // This will be ignored
 
-        System.out.println("UC3 uniqueness validation completed...");
+        // Display final train formation
+        System.out.println("Final Train Formation:");
+        System.out.println(formation);
+
+        System.out.println("\nNote:");
+        System.out.println("LinkedHashSet preserves insertion order and removes duplicates automatically.");
+
+        System.out.println("\nUC5 formation setup completed...");
     }
 }
