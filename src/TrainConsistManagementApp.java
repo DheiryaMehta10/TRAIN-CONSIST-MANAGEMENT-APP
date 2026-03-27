@@ -1,33 +1,32 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
+        // Welcome message
+        System.out.println("=== Train Consist Management App ===");
+        System.out.println("UC6: Map Bogie to Capacity (HashMap)");
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
+        // Step 1: Create HashMap
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Step 2: Insert bogie and capacity
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 40);
+        bogieCapacityMap.put("Goods Rectangular", 100);
+        bogieCapacityMap.put("Goods Cylindrical", 80);
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // Step 3: Display bogie capacity using entrySet()
+        System.out.println("\nBogie Capacity Details:");
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
+        }
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
-
-        System.out.println("UC3 uniqueness validation completed...");
+        // Program continues
+        System.out.println("\nProgram continues...");
     }
 }
