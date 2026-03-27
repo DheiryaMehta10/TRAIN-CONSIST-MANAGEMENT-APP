@@ -1,33 +1,54 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
+// Step 1: Create Bogie class
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // Display method
+    void display() {
+        System.out.println(name + " -> " + capacity);
+    }
+}
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=======================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=======================================\n");
+        System.out.println("=====================================");
+        System.out.println("UC7 - Sort Bogies by Capacity (Comparator)");
+        System.out.println("=====================================");
 
-        // Create HashSet for bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // Step 2: Create List
+        List<Bogie> bogieList = new ArrayList<>();
 
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG104");
-        bogieIds.add("BG103");
-        bogieIds.add("BG102");
-        bogieIds.add("BG101");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // Step 3: Add Bogies
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 56));
+        bogieList.add(new Bogie("First Class", 24));
+        bogieList.add(new Bogie("General", 90));
 
-        // Display unique bogie IDs
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogieIds + "\n");
+        // Before Sorting
+        System.out.println("\nBefore Sorting:");
+        for (Bogie b : bogieList) {
+            b.display();
+        }
 
-        // Note about duplicates
-        System.out.println("Note:");
-        System.out.println("Duplicates are automatically ignored by HashSet.\n");
+        // Step 4: Sort using Comparator (by capacity)
+        bogieList.sort(Comparator.comparingInt(b -> b.capacity));
 
-        System.out.println("UC3 uniqueness validation completed...");
+        // After Sorting
+        System.out.println("\nAfter Sorting by Capacity:");
+        for (Bogie b : bogieList) {
+            b.display();
+        }
+
+        System.out.println("\nUC7 sorting completed...");
     }
 }
