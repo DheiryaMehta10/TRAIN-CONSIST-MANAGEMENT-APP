@@ -1,44 +1,50 @@
+import java.util.Arrays;
 public class Train_App {
-    public static void bubbleSort(int[] capacities) {
-        int n = capacities.length;
+    public static void main(String[] args) {
+        System.out.println("============================================");
+        System.out.println(" UC19 - Binary Search for Bogie ID ");
+        System.out.println("============================================\n");
 
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-                if (capacities[j] > capacities[j + 1]) {
+        Arrays.sort(bogieIds);
 
-                    int temp = capacities[j];
-                    capacities[j] = capacities[j + 1];
-                    capacities[j + 1] = temp;
-                }
-            }
-        }
-    }
+        String key = "BG309";
 
-    // Method to print array
-    public static void printArray(int[] arr) {
-        for (int num : arr) {
-            System.out.print(num + " ");
+        System.out.println("Sorted Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
         }
         System.out.println();
+
+        int resultIndex = performBinarySearch(bogieIds, key);
+
+        if (resultIndex != -1) {
+            System.out.println("Bogie " + key + " found using Binary Search.");
+        } else {
+            System.out.println("Bogie " + key + " not found.");
+        }
+
+        System.out.println("\nUC19 search completed.");
     }
 
-    public static void main(String[] args) {
+    public static int performBinarySearch(String[] arr, String key) {
+        int low = 0;
+        int high = arr.length - 1;
 
-        System.out.println("===============================================");
-        System.out.println(" UC16 - Manual Sorting using Bubble Sort ");
-        System.out.println("===============================================\n");
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int comparison = key.compareTo(arr[mid]);
 
-        int[] capacities = {72, 56, 24, 70, 60};
+            if (comparison == 0) {
+                return mid;
+            } else if (comparison > 0) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
 
-        System.out.println("Original Capacities:");
-        printArray(capacities);
-
-        bubbleSort(capacities);
-
-        System.out.println("\nSorted Capacities (Ascending):");
-        printArray(capacities);
-
-        System.out.println("\nUC16 sorting completed...");
+        return -1;
     }
 }
