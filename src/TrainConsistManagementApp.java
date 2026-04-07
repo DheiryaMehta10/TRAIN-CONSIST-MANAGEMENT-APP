@@ -1,2 +1,3 @@
-public class Train_App {
+public class TrainConsistManagementApp{
+  
 }
